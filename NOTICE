@@ -1,0 +1,13 @@
+Blue3 DNS — Reference guides for encrypted DNS and DNS filtering evaluation.
+Copyright (c) 2026 Samir Hanna Verza
+
+Licensed under the MIT License; see LICENSE.
+
+Repository scaffolding and maintenance tooling are adapted from
+samirhvbr/repodocs, Copyright (c) 2026 Samir Hanna Verza, under the MIT License.
+https://github.com/samirhvbr/repodocs
+
+NextDNS and Apple product names belong to their respective owners. Their
+services and software are not distributed by this repository. References do not
+imply affiliation, sponsorship, or endorsement. Documentation summarizes the
+linked sources; their original content remains with its respective owner.
