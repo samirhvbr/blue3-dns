@@ -9,6 +9,7 @@
 | Document | Audience / status |
 | --- | --- |
 | [Blue3 proposal](blue3.md) | Service owner; recommended scope and open decisions, proposed |
+| [Inventory questionnaire](isp-inventory.md) | NOC and customer IT; fields and evidence needed before architecture selection, proposed |
 | [Architecture](isp-architecture.md) | Network/access operations; proposed topology, identity, correctness, and trade-offs |
 | [Pilot plan](isp-pilot.md) | Pilot owner and operators; proposed phases, test matrix, gates, and restoration |
 | [Operations and privacy](isp-operations-privacy.md) | Support, NOC, and privacy owners; proposed service and data handling |

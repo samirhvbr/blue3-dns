@@ -1,6 +1,6 @@
 # blue3-dns
 
-> **Status:** `ACTIVE` documentation project · Version **0.1.1**.
+> **Status:** `ACTIVE` documentation project · Version **0.1.2**.
 > Subscriber architecture and pilot: `PROPOSED`, **2026-11-12**. No implementation.
 
 An architecture proposal and pilot plan for offering DNS filtering to Blue3
@@ -10,6 +10,7 @@ Start with the proposal overview, then review the design and acceptance gates:
 | Document | What you will find |
 | --- | --- |
 | [Blue3 subscriber proposal](docs/blue3.md) | Recommended scope, open decisions, and next steps |
+| [Inventory questionnaire](docs/isp-inventory.md) | DNS, CGNAT, IPv6, CPEs, business dependencies, and capacity inputs to collect privately |
 | [Architecture](docs/isp-architecture.md) | Query/control paths, CGNAT and IPv6 identity, cache isolation, failures, sizing, and alternatives |
 | [Pilot plan](docs/isp-pilot.md) | Phases, test matrix, measurable gates, stop conditions, and rollback |
 | [Operations and privacy](docs/isp-operations-privacy.md) | Enrollment, data handling, false positives, support, and ownership |

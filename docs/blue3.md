@@ -6,6 +6,19 @@
 
 [Documentation index](README.md) · [Open decisions](../.continue/README.md)
 
+## Planning context
+
+On 2026-11-12, the owner reported approximately **5,000 subscribers**, about
+**85% business subscribers**. This is an owner-provided planning estimate, not
+an independently verified inventory or traffic measurement. The remaining
+subscriber mix, account-to-circuit/site relationship, company sizes, and devices
+per site have not been established.
+
+Plan for a predominantly business audience. Prioritize internal DNS, customer IT
+ownership, VPNs, critical applications, and reliable restoration when selecting
+the cohort. Use the [inventory questionnaire](isp-inventory.md) to gather the
+missing facts privately before choosing the stack or pilot capacity.
+
 ## Recommendation for review
 
 Offer an optional security filtering profile per Internet subscription, initially
@@ -21,6 +34,7 @@ alternative. NextDNS is a reference, not a selected supplier.
 
 | Read | Decisions and evidence covered |
 | --- | --- |
+| [Inventory questionnaire](isp-inventory.md) | Minimum topology/identity inputs, existing aggregate metrics, CPE capabilities, and business-site eligibility |
 | [Architecture](isp-architecture.md) | Components and query flow; CGNAT/IPv6 identity; caching and DNSSEC; transport; failures; capacity and supplier alternatives |
 | [Pilot plan](isp-pilot.md) | Inventory and baseline; lab; internal volunteers; subscriber cohort; targets; rollback; final evidence report |
 | [Operations and privacy](isp-operations-privacy.md) | Enrollment/withdrawal; proposed retention; support and exceptions; monitoring and ownership |
@@ -32,9 +46,10 @@ later as a separate profile. Parental controls, off-network protection, billing,
 and a new customer portal are outside the first pilot. Filtering is not an
 antivirus, a complete firewall, or a guarantee that all advertisements disappear.
 
-A policy initially belongs to the connection/household, not each person or
-device. Shared public IPs behind CGNAT cannot select individual subscriber
-policies safely. IPv6 prefix changes, stale identity records, and shared caches
+A policy initially belongs to an access subscription at a customer site,
+business or residential, not each person or device. Multiple links or branches
+need an explicit account-to-site mapping. Shared public IPs behind CGNAT cannot
+select individual subscriber policies safely. IPv6 prefix changes, stale identity records, and shared caches
 are acceptance tests, not details to postpone until after enrollment.
 
 Recommend preserving connectivity when protection cannot be applied safely,
@@ -49,13 +64,13 @@ trade-off needs owner approval and must appear in participant information.
 | Architecture | Separate Blue3-operated pool before CGNAT | Current resolver/access inventory, trustworthy identity lifecycle, and operator capacity |
 | Stack and feeds | Evaluate a familiar established resolver first | Version-specific tests, feed quality/license, total operating cost |
 | Managed alternative | Evaluate only with suitable ISP terms | Written commercial eligibility, data terms, policy isolation, and quote |
-| Cohort | Lab → 5–10 internal volunteers → up to 25–50 subscribers | Available subscribers, supported access/CPE combinations, and staffed support |
+| Cohort | Lab → 5–10 internal volunteers → up to 25–50 subscriber connections, mainly business | Technical profile coverage, customer IT contacts, supported access/CPE combinations, and staffed support |
 | Failure policy | Equivalent filtered peers; explicit ordinary-DNS restoration | Approval of reduced protection and measured end-to-end recovery |
 | Privacy | Raw query logging off; limited aggregate metrics | Purpose/basis, notice, retention, deletion, vendor review, accountable owner |
 | Acceptance | Proposed targets in the pilot plan | Baseline, named approvers, and final thresholds before enrollment |
 
-No current subscriber count, QPS baseline, resolver inventory, provider quote,
-or device result is asserted by these documents. Keep actual addresses, account
+The approximate population is owner-reported; a QPS baseline, resolver inventory,
+provider quote, and device results are still missing. Keep actual addresses, account
 identifiers, topology details, and customer evidence in private operational records.
 
 ## The next three actions

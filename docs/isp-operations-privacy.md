@@ -11,12 +11,16 @@
 
 Recommend an optional service, initially without pilot billing. Use existing
 account authentication or a verified support request to establish subscription
-ownership. One policy affects the participating connection and its household;
-it does not identify who used a shared device or which household member agreed.
-Have the privacy owner review the notice and household implications.
+ownership and, for a business, the authorized account/site administrator and IT
+change owner. One policy affects the participating connection/site; it does not
+identify individual staff, visitors, or household members. Review notice and
+shared-network implications with the privacy owner. Record which branch/link
+participates instead of assuming approval covers every site of a company.
 
 Before activation, explain the categories, expected coverage, false-positive
-risk, data processing, support channel, and availability-first fallback. Provide
+risk, data processing, support channel, and availability-first fallback. For a
+business, also record critical applications, internal DNS/VPN dependencies, change
+windows, restoration owner, and emergency IT contact. Provide
 withdrawal with comparable ease to enrollment. Keep optional advertising rules
 and future parental controls separate from the initial security profile.
 

@@ -24,6 +24,17 @@ Published component features do not prove compatibility with Blue3's topology.
 | [Unbound RPZ documentation](https://unbound.docs.nlnetlabs.nl/en/latest/topics/filtering/rpz.html) | Existing policy-zone support as another candidate mechanism |
 | [NextDNS pricing](https://nextdns.io/pricing) | Rechecked intended plan use, Business billing unit, and ordinary resolution after the free quota; no ISP contract confirmed |
 | [ANPD FAQ](https://www.gov.br/anpd/pt-br/acesso-a-informacao/perguntas-frequentes) | Sections 2.6 and 5.5 on processing bases and purpose-dependent retention; not a legal approval of this pilot |
+| [Microsoft DNS client recommendations](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/best-practices-for-dns-client-settings) | Internal DNS requirements for domain-connected servers and external forwarding; supports the business inventory questions |
+| [Microsoft DNS forwarding and fallback](https://learn.microsoft.com/en-us/windows-server/networking/dns/forwarding) | Conditional forwarding and root-hint fallback paths to inventory before promising filtering coverage |
+
+## Owner-provided planning inputs
+
+On **2026-11-12**, the owner reported approximately 5,000 subscribers, about 85%
+business subscribers. These estimates support audience/cohort planning; they
+were not independently measured and do not establish QPS, company size, device
+count, or the number of distinct companies/sites. The
+[proposal context](blue3.md#planning-context) distinguishes these inputs from
+the technical inventory that remains unknown.
 
 ## Original NextDNS and iPhone references
 
@@ -54,7 +65,8 @@ same way; record the actual versions when testing a device.
 Regional prices are deliberately linked rather than copied. The retrieved
 pricing page displayed GBP, so it was not treated as a Brazilian price quote.
 No provider account, iPhone, CPE, Blue3 network, or production resolver was
-changed or tested while preparing this documentation. Subscriber counts, traffic
-measurements, capacity, latency, recovery times, and vendor quotations remain
-uncollected. The [pilot evidence table](isp-pilot.md#7-evidence-and-final-decision)
+changed or tested while preparing this documentation. Apart from the owner's
+population estimate, technical inventory, traffic measurements, capacity,
+latency, recovery times, and vendor quotations remain uncollected. The
+[pilot evidence table](isp-pilot.md#7-evidence-and-final-decision)
 records that boundary.

@@ -21,6 +21,11 @@ Use safe, controlled policy differences to test isolation in the lab. Advertisin
 categories, parental controls, roaming/off-network service, billing automation,
 and a custom subscriber UI are outside the first pilot.
 
+The [owner-reported population](blue3.md#planning-context) is predominantly
+business. Select customer sites/circuits, record distinct organizations separately,
+and include the business DNS paths that the service will support. A successful
+staff-home trial does not validate enterprise internal DNS, VPNs, or firewalls.
+
 ## 2. Phases and gates
 
 Durations are minimum observation proposals, not a committed schedule. A failed
@@ -34,7 +39,7 @@ a capacity estimate or a requirement to recruit that many customers.
 | P1 — Baseline | At least 7 days of authorized aggregate measurements from the current path and representative test connections | Busy-hour QPS/latency/error baseline, CPE families, IPv4/IPv6 coverage, essential services, existing DNS behavior and restoration method |
 | P2 — Isolated lab | Duration determined by the test matrix; synthetic identities and controlled zones | All mandatory correctness, isolation, load, failure, and rollback tests pass; no real customer traffic or third-party load tests |
 | P3 — Internal volunteers | 5–10 eligible staff connections, at least 7 days, explicitly participating | Full activation/withdrawal cycle, monitored peak hours, one controlled recovery exercise, working support coverage, and no unresolved stop condition |
-| P4 — Subscriber volunteers | 25–50 eligible connections at most, at least 14 days; enroll in small batches | Gates met across the supported cohort, manageable support demand, no unexplained policy leakage, and validated withdrawal |
+| P4 — Subscriber volunteers | 25–50 eligible connections at most, predominantly business sites, at least 14 days; enroll in small batches | Gates met across the supported cohort, customer IT acceptance, manageable support demand, no unexplained policy leakage, and validated withdrawal |
 | P5 — Review and closure | Freeze expansion and prepare the evidence report | Owner chooses stop, revise/retest, or separately authorize a larger stage; restore participants unless continuation is explicitly approved |
 
 Lab preparation may overlap baseline analysis after authorization; live customer
@@ -48,11 +53,19 @@ generalize a successful IPv4-only test to all subscribers. Cohort evidence must
 cover each supported access method and CPE family; reduce scope when 50
 connections cannot cover it responsibly.
 
+Use the [inventory questionnaire](isp-inventory.md) to select business profiles:
+simple CPE forwarding, internal DNS/Active Directory, managed firewalls/VPNs,
+IPv4/IPv6, and relevant access methods. Include a profile only after its lab
+checks and restoration path pass. Start customer batches with an available IT
+contact and a straightforward recovery path; defer higher-criticality sites
+until their own change-window and outage constraints can be met. Cohort size
+and composition remain proposals, not an exact 85/15 quota.
+
 ## 3. Preparation and required artifacts
 
 Complete these privately before P2/P3 as applicable:
 
-- Inventory from the [architecture](isp-architecture.md#2-known-facts-and-missing-inputs),
+- Completed private [inventory worksheet](isp-inventory.md),
   including address reassignment ordering and the actual current resolver path.
 - Selected stack/version and feed licenses; for a managed candidate, written ISP
   commercial eligibility, limits, data handling, exit conditions, and cost cap.
@@ -81,7 +94,7 @@ must not conceal a broken supported combination.
 | Latency regression | Filtered p95 no more than baseline +10 ms; p99 no more than baseline +25 ms | Paired allowed-name probes from the same connection and comparable periods; report warm/cold caches separately |
 | Policy correctness | 100% expected results in the controlled block/allow corpus | Probe both endpoints and all supported transports; blocking rate in real traffic is not detection coverage |
 | Subscription and cache isolation | Zero confirmed cross-subscription policy applications or data disclosures | Reassignment, reconnect, prefix rotation, and positive/negative cache tests; a single failure blocks advancement |
-| Essential services and false positives | Zero unresolved filter-caused essential-service failures; at most 1 confirmed false-positive incident per 100 subscriber-days in P4 | Pre-agreed banking, communications, work/study, and Blue3 service checks; de-duplicate the same household/service/cause incident and report affected connections as well |
+| Essential services and false positives | Zero unresolved filter-caused essential-service failures; at most 1 confirmed false-positive incident per 100 subscriber-days in P4 | Pre-agreed banking, communications, work/study, and Blue3 service checks; de-duplicate the same site/service/cause incident and report affected connections as well |
 | Policy change or withdrawal | Resolver policy converges within 5 minutes of an accepted change | Check both endpoints and affected CPE; record client cache/configuration delays separately and hold unsupported CPE families |
 | Single-endpoint failure | Representative clients resume the same policy within 30 seconds | Controlled loss of each endpoint/uplink, one at a time; measure client recovery, not just server health |
 | Full restoration | Ordinary DNS verified within 15 minutes from the rollback trigger | Exercise the complete procedure below, including detection, CPE update, IPv6, and client confirmation |
@@ -120,7 +133,8 @@ needs its own scoped change window and still counts in the live results.
 | A/AAAA, CNAME chains, HTTPS/SVCB, EDNS, large answers, UDP/TCP | No supported query-type or alias bypass; TCP fallback succeeds | Yes |
 | CPE DHCP and IPv6 RA/DHCPv6, reboot, renewal, stale advertisements | Both advertised endpoints apply the intended policy; restoration remains effective | Yes for each enrolled family |
 | VPN, app DNS override, external DoH, cached answers | Coverage limits demonstrated and explained; no promise to intercept them | Yes if the notice misstates coverage |
-| Internal names, captive portals, essential apps | Required names/services retain approved behavior; no internal-name leak upstream | Yes where applicable |
+| Internal DNS/Active Directory, split DNS, VPNs, central branch DNS, and multi-WAN | Internal resolution and customer IT controls remain intact; actual source and alternate DNS paths are documented; no internal-name leak upstream | Yes for each supported business profile |
+| Captive portals and essential apps, including agreed business services | Authentication, ERP/invoicing, payments, voice, and other applicable services retain approved behavior | Yes where applicable |
 | Single node/site/uplink loss and both-node loss | Measured peer recovery or approved full restoration | Yes |
 | Control-plane outage and address reuse during the outage | Working policy persists; expired/ambiguous identities never borrow another policy | Yes |
 | Invalid/empty feed, incomplete load, node restart, divergent revisions | No silent empty policy; last working policy or declared degraded recovery | Yes |
@@ -184,6 +198,7 @@ measurements only.
 | Current evidence | Status |
 | --- | --- |
 | Architecture and pilot documents | Proposed; available for owner review |
+| Subscriber population and business share | Approximate owner report; not independently verified |
 | Blue3 topology, traffic baseline, and cost sheet | Not collected by this project |
 | Stack selection, configuration, and lab tests | Not started |
 | CPE compatibility, rollback timings, and load measurements | Not tested |

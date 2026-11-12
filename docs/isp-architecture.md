@@ -13,8 +13,9 @@ means the network operations team; CGNAT is the provider's shared address transl
 ## 1. Service boundary
 
 Offer optional DNS filtering to Blue3 access subscribers. The initial unit of
-policy is an **Internet subscription and its connected household**, not an
-individual person or application. Recommend starting with a security profile
+policy is an **access subscription at a customer site**, business or residential,
+not an individual person or application. Map multiple branches/links explicitly;
+do not infer one organization from a shared public address. Recommend a security profile
 for known malicious and phishing domains. Keep advertising/tracking categories
 as a later, separate opt-in profile because their compatibility trade-offs differ.
 
@@ -26,18 +27,25 @@ inspection, root certificate installation, or parental-control guarantee is
 proposed. The existing [NextDNS guide](nextdns.md) explains these general limits.
 
 Authoritative DNS, existing internal zones, and ordinary subscriber resolution
-remain separate responsibilities. Identify any required private-name forwarding
-before enrollment; never send internal zones to a public upstream by accident.
+remain separate responsibilities. For businesses with their own DNS, preserve
+internal resolution and evaluate the external-forwarding path with their IT
+owner, rather than assuming every device can switch to ISP DNS. Identify
+private-name forwarding and VPN/split-DNS behavior before enrollment; never send
+internal zones to a public upstream by accident. See the
+[business inventory requirements and sources](isp-inventory.md#2-minimum-inventory-to-choose-the-architecture).
 
 ## 2. Known facts and missing inputs
 
 The owner has selected ISP subscribers as the audience and requested a proposal
 without implementation. This repository contains documentation, not evidence
-about Blue3's current DNS topology. The following inventory is still unknown:
+about Blue3's current DNS topology. The owner has supplied an approximate
+population and business share in the [planning context](blue3.md#planning-context).
+The [inventory questionnaire](isp-inventory.md) defines the remaining fields and
+evidence status. The following technical inventory is still unknown:
 
 | Input | Why it changes the design | Evidence owner |
 | --- | --- | --- |
-| Subscriber count, pilot locations, access methods | Cohort size, routing, and identity coverage | Network operations (NOC) |
+| Account-to-circuit/site mapping, business sizes, pilot locations, access methods | Policy scope, cohort coverage, and routing | Network operations (NOC) |
 | Current resolvers, software, versions, internal zones | Reuse, compatibility, and rollback destination | NOC |
 | Location of DNS traffic relative to CGNAT and access realms | Whether a subscription can be identified safely | Access network owner |
 | Session/address source and IPv6 prefix delegation lifecycle | Binding creation, revocation, and address reuse | Access network owner |
@@ -112,7 +120,9 @@ Identify the subscription at a trusted point before carrier NAT, using the
 assigned WAN IPv4 address and access realm, or the delegated IPv6 prefix and its
 active assignment. Private addresses may overlap between realms. An IPv6 device
 address must belong to the current delegated prefix; temporary device addresses
-do not require individual household identities.
+do not require individual device identities. If a business centralizes branch
+DNS through one site or VPN egress, identify that aggregation explicitly; do not
+claim independent branch policies unless trusted context can distinguish them.
 
 AAA/RADIUS, DHCP, PPPoE session records, or the existing access controller are
 candidate sources, subject to inventory. A shared public IPv4 address is not a
@@ -258,7 +268,7 @@ Before live enrollment, use a documented upper bound from P1 traffic measurement
 of the intended cohort, or conservatively the measured access segment if the
 cohort cannot be separated. Recalculate with actual pilot peaks after P3 and
 before each expansion. A missing baseline is a reason to hold the load gate,
-not to invent a per-household QPS estimate.
+not to invent a per-site QPS estimate.
 
 For monthly volume, use average QPS × 86,400 × billing-period days; use peak QPS
 for capacity, not the monthly bill. The private cost sheet should include

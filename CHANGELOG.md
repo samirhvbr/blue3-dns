@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.2 - Define the inventory for a business-focused DNS pilot
+
+Record the owner's approximate subscriber population and business share as
+reported planning inputs, distinct from measured traffic or verified topology.
+Replace the household-only policy assumption with an access subscription at a
+customer site, and account for multiple branches, internal DNS, VPNs, customer
+IT ownership, and critical business services in the proposed pilot.
+
+Add an inventory questionnaire covering current DNS paths, CGNAT/session
+identity, IPv6 delegation, CPE/firewall behavior, independent recovery, existing
+aggregate metrics, and business-site eligibility. Keep actual infrastructure
+and customer details in private records. Link official Microsoft DNS references
+for internal resolution and forwarding behavior. Pilot counts and technical
+choices remain proposed; no data collection, infrastructure inspection, or
+implementation occurs.
+
+Validation covers local Markdown links and anchors, documentation-only scope,
+agent-guide consistency, and version/release metadata. No network, CPE, workload,
+or customer compatibility tests were performed.
+
 ## 0.1.1 - Propose a DNS filtering pilot for Blue3 subscribers
 
 Focus the project on the owner's subscriber service request. Document a proposed
