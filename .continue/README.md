@@ -1,6 +1,6 @@
 # Open work and decisions
 
-> **Status:** `ACTIVE` · Reviewed **2026-11-05**, version **0.1.0**.
+> **Status:** `ACTIVE` · Reviewed **2026-11-12**, version **0.1.1**.
 
 This is the queue for work that has not been completed. Delivered documentation
 is indexed in [docs/](../docs/README.md); delivery history is in the
@@ -10,10 +10,16 @@ governs the distinction.
 
 | Decision | Owner | Context |
 | --- | --- | --- |
-| Choose the first audience: personal devices, corporate users, or ISP subscribers | Samir / Blue3 | [Evaluation framework](../docs/blue3.md) |
-| Define pilot scope, operator, acceptance targets, and rollback authority | Blue3 network operations | No pilot has been commissioned by this repository |
-| Establish required internal DNS behavior, data retention, and commercial terms | Blue3 project owner | Required before choosing an architecture or provider |
+| Complete the private subscriber/access/resolver/CPE inventory and baseline plan | Blue3 network operations | [Missing inputs](../docs/isp-architecture.md#2-known-facts-and-missing-inputs); no production inspection performed |
+| Approve offering scope, enrollment, failure behavior, support ownership, and budget | Samir / Blue3 service owner | [Proposal overview](../docs/blue3.md); recommendations are not adopted service policies |
+| Choose a candidate stack/feed or managed ISP contract after inventory | Network and service owners | [Alternatives](../docs/isp-architecture.md#8-capacity-and-option-selection); NextDNS remains a reference |
+| Approve data purposes, notice, retention, vendor handling, and deletion | Privacy owner | [Data-handling proposal](../docs/isp-operations-privacy.md#2-proposed-data-handling) |
+| Authorize a lab phase and name operators, gates, cohort, and rollback authority | Service owner and NOC | [Pilot plan](../docs/isp-pilot.md); no execution is authorized yet |
 
-An iPhone validation and a Blue3 pilot have not been executed. They are possible
-next activities, not approved deployments. Do not turn these open decisions into
-implementation instructions without a new owner decision.
+The subscriber audience is confirmed by [ADR-004](../docs/decisions.md#adr-004--focus-the-proposal-on-blue3-subscribers).
+The architecture and pilot documents are delivered proposals; their execution
+remains open. No infrastructure, provider account, CPE setting, query collection,
+or customer enrollment has been created by this project. Personal iPhone
+validation remains unperformed and outside the active subscriber pilot scope.
+
+Do not turn these proposals into implementation without a new owner decision.

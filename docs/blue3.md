@@ -1,91 +1,77 @@
-# DNS filtering evaluation for Blue3
+# DNS filtering for Blue3 subscribers
 
-> **Status:** `PROPOSED` evaluation framework · **2026-11-05**.
-> No pilot, provider selection, production architecture, or deployment is approved
-> by this document.
+> **Status:** `PROPOSED` architecture and pilot · **2026-11-12**.
+> Audience confirmed: Blue3 Internet subscribers. Technical choices, service
+> policies, and pilot execution remain subject to review. No implementation.
 
-[Documentation index](README.md) · [NextDNS guide](nextdns.md)
+[Documentation index](README.md) · [Open decisions](../.continue/README.md)
 
-## Purpose and boundaries
+## Recommendation for review
 
-Use NextDNS as a reference for managed filtering while determining what Blue3
-actually needs. This repository does not yet implement a resolver or filtering
-platform. The following criteria are a project proposal, not claims about
-capabilities already available in NextDNS or deployed by Blue3.
+Offer an optional security filtering profile per Internet subscription, initially
+covering queries through the subscriber's Blue3 connection. Evaluate a separate
+Blue3-operated filtering resolver pool with two independent failure domains.
+Keep ordinary DNS available for nonparticipants and explicit restoration.
 
-| Audience | Questions to answer first |
+This approach makes identity, policy isolation, customer support, and rollback
+testable before expanding the service. It requires operating capacity and a
+trusted subscription-to-address mapping; it is not automatically preferable if
+those conditions cannot be met. A contracted managed ISP service remains an
+alternative. NextDNS is a reference, not a selected supplier.
+
+| Read | Decisions and evidence covered |
 | --- | --- |
-| Personal devices | Installation, privacy preferences, and compatibility |
-| Corporate users | Internal names, identity, policy groups, auditing, and continuity |
-| ISP subscribers | Opt-in, scale, policy isolation, commercial permission, support, and availability |
+| [Architecture](isp-architecture.md) | Components and query flow; CGNAT/IPv6 identity; caching and DNSSEC; transport; failures; capacity and supplier alternatives |
+| [Pilot plan](isp-pilot.md) | Inventory and baseline; lab; internal volunteers; subscriber cohort; targets; rollback; final evidence report |
+| [Operations and privacy](isp-operations-privacy.md) | Enrollment/withdrawal; proposed retention; support and exceptions; monitoring and ownership |
 
-Managed recursive DNS filtering does not replace authoritative zones or the
-design of internal name resolution. An external resolver may not know corporate
-names. Apple documents this compatibility issue for encrypted DNS clients.
-[Source: Apple encrypted DNS overview](https://developer.apple.com/videos/play/wwdc2020/10047/).
+## Scope and limits
 
-## Components to evaluate
+Start with known malicious/phishing domains. Evaluate advertising/tracking rules
+later as a separate profile. Parental controls, off-network protection, billing,
+and a new customer portal are outside the first pilot. Filtering is not an
+antivirus, a complete firewall, or a guarantee that all advertisements disappear.
 
-| Component | Evidence needed |
-| --- | --- |
-| Recursive resolution | Cache behavior, DNSSEC validation, IPv4/IPv6, capacity, and redundancy |
-| Filtering | Block categories, reputation sources, narrow exceptions, and false positives |
-| Transport | Client support for conventional DNS, DoH, and DoT; network restrictions |
-| Internal DNS | Private zones, conditional forwarding or client exceptions, and VPN behavior |
-| Policy management | User/group boundaries, administrative access, change history, and isolation |
-| Operations | Query rate, latency percentiles, errors, alerting, and recovery procedures |
-| Data handling | Log fields, retention, access, storage location, and deletion procedures |
+A policy initially belongs to the connection/household, not each person or
+device. Shared public IPs behind CGNAT cannot select individual subscriber
+policies safely. IPv6 prefix changes, stale identity records, and shared caches
+are acceptance tests, not details to postpone until after enrollment.
 
-## Managed service or self-operated infrastructure
+Recommend preserving connectivity when protection cannot be applied safely,
+with an explicit degraded state and restoration procedure. This availability
+trade-off needs owner approval and must appear in participant information.
 
-| Criterion | Managed service | Self-operated infrastructure |
+## Decisions before execution
+
+| Decision | Proposed starting point | Still needed |
 | --- | --- | --- |
-| Operations | Provider manages part of the resolver and filtering service | Blue3 owns maintenance, capacity, and incident response |
-| Control | Limited by exposed features and contract | Depends on implemented components and policies |
-| Availability | Provider service and network reachability both matter | Requires tested redundancy and an operational team |
-| Data | Assess provider processing and configured retention | Blue3 operates and protects its own collection/storage |
-| Cost | Subscription and commercial conditions | Infrastructure, connectivity, staffing, and maintenance |
+| Offering | Optional security profile; no initial pilot billing | Service owner approval of scope and participant terms |
+| Architecture | Separate Blue3-operated pool before CGNAT | Current resolver/access inventory, trustworthy identity lifecycle, and operator capacity |
+| Stack and feeds | Evaluate a familiar established resolver first | Version-specific tests, feed quality/license, total operating cost |
+| Managed alternative | Evaluate only with suitable ISP terms | Written commercial eligibility, data terms, policy isolation, and quote |
+| Cohort | Lab → 5–10 internal volunteers → up to 25–50 subscribers | Available subscribers, supported access/CPE combinations, and staffed support |
+| Failure policy | Equivalent filtered peers; explicit ordinary-DNS restoration | Approval of reduced protection and measured end-to-end recovery |
+| Privacy | Raw query logging off; limited aggregate metrics | Purpose/basis, notice, retention, deletion, vendor review, accountable owner |
+| Acceptance | Proposed targets in the pilot plan | Baseline, named approvers, and final thresholds before enrollment |
 
-A hybrid design is possible, but should name the resolver used by each class of
-query and during each failure mode. An unfiltered fallback may preserve name
-resolution while silently removing protection; document that choice explicitly.
+No current subscriber count, QPS baseline, resolver inventory, provider quote,
+or device result is asserted by these documents. Keep actual addresses, account
+identifiers, topology details, and customer evidence in private operational records.
 
-## Pilot sequence
+## The next three actions
 
-1. Select one audience and a small, consenting test group. Assign an operator and
-   a person who can stop the pilot.
-2. Measure the existing path: average/peak queries per second, monthly volume,
-   concurrent clients, geography, IPv4/IPv6, and essential internal names.
-3. Map recursive and authoritative roles, VPNs, caching, and client DNS overrides.
-   Keep operational addresses and account data outside this public repository.
-4. Set success thresholds before testing: p50/p95/p99 latency, resolution errors,
-   availability, acceptable false positives, and support response expectations.
-5. Test policy isolation, allow/deny exceptions, essential apps, internal names,
-   captive portals, and each selected device/network combination.
-6. Exercise resolver and uplink failures. Decide whether each case should keep
-   resolving without filtering or fail closed; measure the result and rollback.
-7. Confirm the intended commercial use, support terms, limits, and any SLA with
-   the provider. The published Pro plan is personal/family; Business pricing is
-   per 50 employees. Neither establishes ISP resale permission.
-   [Source: official pricing](https://nextdns.io/pricing).
-8. Review the proposed data handling and applicable privacy obligations with the
-   responsible owner. Record the purpose, access, retention, and deletion path.
-9. Record results and decide whether to proceed, revise the design, or stop.
-   No measurements or successful pilot results exist in this repository yet.
+1. **Complete the private network and identity inventory.** Establish the current
+   DNS path, access-session source, IPv4/IPv6 lifecycle, CPE restoration method,
+   and available failure domains. These facts can validate or rule out the
+   recommended topology before implementation effort is committed.
+2. **Approve the service boundary and operating responsibilities.** Decide
+   opt-in behavior, degraded protection, privacy/retention, support coverage, and
+   budget. Do not convert proposed targets into customer promises.
+3. **Authorize a bounded lab evaluation after those decisions.** Select one
+   candidate stack and execute the isolation, DNS correctness, failure, and
+   restoration matrix before any customer pilot. A public release of this
+   documentation does not grant that authorization.
 
-## Evidence required before production
-
-- Architecture diagram showing normal, internal-name, and fallback DNS paths.
-- Measured capacity, latency, errors, and recovery behavior.
-- Approved logging and retention settings, with named access owners.
-- Procedures for false positives, user support, incidents, and rollback.
-- Confirmed commercial terms and operating costs.
-- Explicit acceptance criteria and an accountable operations owner.
-
-## Decisions still open
-
-The first audience, required scale, internal DNS dependencies, retention, and
-availability target remain open. Track these decisions in the
-[project queue](../.continue/README.md); record accepted technical decisions in
-the [ADR log](decisions.md). Selecting a public repository name does not select
-a DNS provider or authorize changes to Blue3's network.
+Accepted scope decisions live in [the ADR log](decisions.md). Unresolved work is
+tracked in [the project queue](../.continue/README.md). Official source checks
+are recorded in [the source register](sources.md); no lab or pilot has run.

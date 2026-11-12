@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.1 - Propose a DNS filtering pilot for Blue3 subscribers
+
+Focus the project on the owner's subscriber service request. Document a proposed
+architecture with a separate filtering path, trusted CGNAT/IPv6 subscription
+identity, policy/cache isolation, DNSSEC trade-offs, independent failure domains,
+and an explicit return to ordinary DNS. Compare self-operated and contracted
+managed options without selecting a vendor or assuming ISP resale permission.
+
+Define proposed inventory, baseline, lab, internal-volunteer, and subscriber
+phases with acceptance measurements, a compatibility matrix, stop conditions,
+and end-to-end restoration evidence. Add enrollment, support, false-positive,
+privacy, retention, and ownership proposals. Keep missing network inputs and
+owner decisions explicit, and date the primary technical sources checked on
+2026-11-12. Preserve NextDNS and iPhone guides as supporting references.
+
+Validation covers Markdown links and anchors, document consistency, mirrored
+agent instructions, and release metadata. No resolver software, device setting,
+network configuration, account, data collection, or pilot is implemented or
+tested by this delivery. Numeric gates are proposals, not measured results.
+
 ## 0.1.0 - Establish the public DNS reference project
 
 Organize the supplied NextDNS material into an English (US) service guide, an

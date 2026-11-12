@@ -1,12 +1,34 @@
 # Official source register
 
-> **Status:** `ACTIVE` · Sources checked on **2026-11-05**.
+> **Status:** `ACTIVE` · Verification dates are recorded by group below.
 
 [Documentation index](README.md)
 
 The supplied README and archive were the editorial starting point. Product
 claims were checked against the primary sources below. These checks verify what
 the sources state; they are not independent service, device, or network tests.
+
+## Subscriber architecture and pilot references
+
+Checked on **2026-11-12**. The engineering recommendations and numeric pilot gates
+are this project's proposals, not recommendations attributed to these sources.
+Published component features do not prove compatibility with Blue3's topology.
+
+| Source | What it supports |
+| --- | --- |
+| [RFC 5358](https://www.rfc-editor.org/rfc/rfc5358.html) | Restricting recursive DNS exposure and reducing reflection abuse |
+| [RFC 7871](https://www.rfc-editor.org/rfc/rfc7871.html) | ECS behavior and privacy/operational limitations; it is not subscriber authentication |
+| [RFC 8106](https://www.rfc-editor.org/rfc/rfc8106.html) | DNS information and lifetimes in IPv6 router advertisements |
+| [RFC 8914](https://www.rfc-editor.org/rfc/rfc8914.html) | Extended DNS Errors, including client-requested filtering; EDE does not replace response codes |
+| [BIND response policy reference](https://bind9.readthedocs.io/en/stable/reference.html#response-policy-zone-rpz-rewriting) | RPZ behavior, startup readiness, and DNSSEC rewriting limitations; a candidate mechanism, not a stack selection |
+| [Unbound RPZ documentation](https://unbound.docs.nlnetlabs.nl/en/latest/topics/filtering/rpz.html) | Existing policy-zone support as another candidate mechanism |
+| [NextDNS pricing](https://nextdns.io/pricing) | Rechecked intended plan use, Business billing unit, and ordinary resolution after the free quota; no ISP contract confirmed |
+| [ANPD FAQ](https://www.gov.br/anpd/pt-br/acesso-a-informacao/perguntas-frequentes) | Sections 2.6 and 5.5 on processing bases and purpose-dependent retention; not a legal approval of this pilot |
+
+## Original NextDNS and iPhone references
+
+Checked on **2026-11-05**. Only pricing was rechecked on 2026-11-12; do not infer
+that all original product or device instructions were reverified with this edit.
 
 | Source | What it supports |
 | --- | --- |
@@ -31,5 +53,8 @@ same way; record the actual versions when testing a device.
 
 Regional prices are deliberately linked rather than copied. The retrieved
 pricing page displayed GBP, so it was not treated as a Brazilian price quote.
-No provider account, iPhone, Blue3 network, or production resolver was changed
-or tested while preparing this documentation.
+No provider account, iPhone, CPE, Blue3 network, or production resolver was
+changed or tested while preparing this documentation. Subscriber counts, traffic
+measurements, capacity, latency, recovery times, and vendor quotations remain
+uncollected. The [pilot evidence table](isp-pilot.md#7-evidence-and-final-decision)
+records that boundary.

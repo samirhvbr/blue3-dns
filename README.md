@@ -1,37 +1,47 @@
 # blue3-dns
 
-> **Status:** `ACTIVE` documentation project · Version **0.1.0**.
-> Official product sources last checked on **2026-11-05**.
+> **Status:** `ACTIVE` documentation project · Version **0.1.1**.
+> Subscriber architecture and pilot: `PROPOSED`, **2026-11-12**. No implementation.
 
-Reference guides for encrypted DNS, NextDNS, and DNS filtering evaluation at
-Blue3. Start with the guide for your use case:
+An architecture proposal and pilot plan for offering DNS filtering to Blue3
+Internet subscribers, with NextDNS and iPhone guides as supporting references.
+Start with the proposal overview, then review the design and acceptance gates:
 
 | Document | What you will find |
 | --- | --- |
-| [NextDNS guide](docs/nextdns.md) | Query flow, capabilities, limits, plans, and privacy |
-| [NextDNS on iPhone](docs/iphone.md) | App versus native profile, setup, verification, and rollback |
-| [Blue3 evaluation](docs/blue3.md) | Corporate and ISP requirements, trade-offs, and pilot criteria |
+| [Blue3 subscriber proposal](docs/blue3.md) | Recommended scope, open decisions, and next steps |
+| [Architecture](docs/isp-architecture.md) | Query/control paths, CGNAT and IPv6 identity, cache isolation, failures, sizing, and alternatives |
+| [Pilot plan](docs/isp-pilot.md) | Phases, test matrix, measurable gates, stop conditions, and rollback |
+| [Operations and privacy](docs/isp-operations-privacy.md) | Enrollment, data handling, false positives, support, and ownership |
+| [NextDNS guide](docs/nextdns.md) | Service capabilities, limits, plans, and privacy references |
+| [NextDNS on iPhone](docs/iphone.md) | Personal-device app/profile reference and verification steps |
 | [Documentation index](docs/README.md) | Sources, maintenance, security, and decisions |
 
 This repository contains documentation and repository maintenance tooling.
 There is no DNS server implementation or deployment here. Blue3 has not selected
 NextDNS through this project, and this is not an official NextDNS project.
 
-## Query flow
+## Proposed service
 
 ```mermaid
 flowchart TD
-    A[Device asks for a domain] --> B[Query reaches NextDNS]
-    B --> C{Policy blocks the domain?}
-    C -->|Yes| D[Configured blocking response]
-    C -->|No| E[Normal DNS answer]
-    E --> F[Device attempts its connection]
+    A[Blue3 subscriber connection] --> B{Enrolled in filtering?}
+    B -->|Yes| C[Separate filtering path with subscription policy]
+    B -->|No| D[Existing ordinary DNS path]
+    C -. Explicit withdrawal or emergency restoration .-> D
 ```
 
-Filtering can cover apps and browsers that use the configured resolver. A VPN,
-app-specific DNS, or cached answers can change the path. Encrypted DNS protects
-queries in transit to the resolver; filtering does not replace endpoint security
-or access controls. See the [guide and its sources](docs/nextdns.md).
+The recommendation is an optional security profile, two equivalent filtering
+endpoints in independent failure domains, and a tested return to ordinary DNS.
+Subscriber identity must survive CGNAT and IPv6 address changes. Existing
+infrastructure, capacity, provider eligibility, and operational ownership still
+need validation; the diagram does not describe an operating service.
+
+Filtering covers queries that reach the configured resolver. VPNs, app-specific
+DNS, cached answers, and off-network use limit that coverage. Encryption support
+depends on the selected transport and client. The initial proposal makes no
+universal encryption or parental-control promise. See the
+[architecture boundaries](docs/isp-architecture.md#1-service-boundary).
 
 ## Getting started
 
@@ -44,8 +54,10 @@ git config core.hooksPath tools/git-hooks
 ```
 
 No application dependencies, credentials, or runtime installation are required
-to read these guides. Use the [iPhone guide](docs/iphone.md) for a personal device
-or the [evaluation framework](docs/blue3.md) before proposing a Blue3 pilot.
+to read these guides. The pilot is **not started**; proposed numbers are decision
+targets, not measurements. See the [source register](docs/sources.md) for dated
+technical references and the [open decisions](.continue/README.md) before any
+future implementation.
 
 ## Contributing
 

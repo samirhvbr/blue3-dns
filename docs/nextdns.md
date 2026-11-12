@@ -104,4 +104,5 @@ network exclusions easier. See the [iPhone guide](iphone.md).
 
 Corporate and ISP use need separate decisions about internal DNS, policy
 isolation, capacity, continuity, privacy, and commercial terms. The
-[Blue3 evaluation](blue3.md) records the questions to answer before a pilot.
+[Blue3 subscriber proposal](blue3.md) now develops the ISP architecture and pilot
+plan; its technical choices remain proposed and no pilot has been executed.

@@ -111,8 +111,10 @@ This repository is public from its initial publication. Review every delivery:
 - [ ] `SECURITY.md` names a reporting address that is actually monitored.
 - [ ] Every prescriptive document declares its status; nothing reads as current
       while describing something abandoned.
-- [ ] `.continue/` holds no finished item or detailed record of work that already
-      exists. Specifications of unbuilt work stay there, at any length.
+- [ ] `.continue/` tracks pending decisions and execution, not completed work.
+      Reviewable design/pilot proposals may live in `docs/` when marked
+      `PROPOSED` and linked from the queue, as recorded in
+      [ADR-004](decisions.md#adr-004--focus-the-proposal-on-blue3-subscribers).
 - [ ] `README.md` is in English and describes what the project **is**, not what
       it was going to be.
 - [ ] No placeholder left over from the skeleton:

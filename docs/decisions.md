@@ -1,6 +1,6 @@
 # Decisions
 
-> **Status:** `ACTIVE` · Repository decisions recorded on **2026-11-05**.
+> **Status:** `ACTIVE` · Updated **2026-11-12**; each decision carries its own date.
 
 ## ADR-001 — Publish a documentation project before selecting DNS infrastructure
 
@@ -49,3 +49,22 @@ self-hosted runner inventory or network access instructions in the agent guide.
 **Consequences.** No office runner is registered. Publication is distinct from
 runtime validation. Wait for the workflow before any manual release recovery to
 avoid concurrent publishers.
+
+## ADR-004 — Focus the proposal on Blue3 subscribers
+
+**Status:** `ACCEPTED` · 2026-11-12
+
+**Context.** The owner explicitly selected DNS filtering for Blue3 Internet
+subscribers and requested an architecture proposal and pilot plan without
+implementation.
+
+**Decision.** Make the subscriber offering the active planning scope. Publish a
+reviewable architecture, pilot plan, and operations/privacy proposal in English
+(US), while preserving NextDNS and iPhone material as supporting references.
+Mark technical designs, service policies, numeric targets, and execution steps
+as `PROPOSED`; track their unresolved decisions in `.continue/`.
+
+**Consequences.** The audience question from ADR-001 is resolved. No resolver
+stack, managed supplier, subscription integration, retention policy, customer
+enrollment, lab execution, or deployment is approved by this decision. Further
+implementation requires an owner decision after review of the proposals.
